@@ -14,8 +14,8 @@ I need configure my laptop to connect to internet and connect to both LANs.
 ## Configuration
 
 1. Set WIFI card TCP/IP default gateway to be 192.168.1.101
-2. Set LAN card TCP/IP defauly gateway to empty.
-3. Only 1 gateway should be set on all the network card of the laptop.
+2. Set LAN card TCP/IP default gateway to empty.
+3. Only 1 gateway should be set on all the network cards of the laptop.
 4. Add manual route to routes table  
 
 `
