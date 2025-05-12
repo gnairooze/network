@@ -170,7 +170,7 @@ web server a or b response
 
 ### description
 
-When you have a layered architecture with multiple reverse proxies and load balancers, the **total bandwidth required across the entire system is determined by the client-facing traffic**, but **each hop in the chain will carry the full payload**, effectively multiplying the internal bandwidth usage[1](https://serverfault.com/questions/247337/proxy-bandwidth).
+When you have a layered architecture with multiple reverse proxies and load balancers, the **total bandwidth required across the entire system is determined by the client-facing traffic**, but **each hop in the chain will carry the full payload**, effectively multiplying the internal bandwidth usage [1](https://serverfault.com/questions/247337/proxy-bandwidth).
 
 ### How the Setup Affects Bandwidth Calculation
 
@@ -182,17 +182,17 @@ When you have a layered architecture with multiple reverse proxies and load bala
     - From the web load balancer to the reverse proxies (another 100 MB)
     - From the reverse proxies to the reverse proxy load balancer (another 100 MB)
     - From the reverse proxy load balancer to the client (final 100 MB)
-- **Total internal bandwidth usage:** 3× the client-facing bandwidth for this request[1](https://serverfault.com/questions/247337/proxy-bandwidth).
+- **Total internal bandwidth usage:** 3× the client-facing bandwidth for this request [1](https://serverfault.com/questions/247337/proxy-bandwidth).
 
 #### 2. Aggregate Bandwidth
 - The **external bandwidth** (client to reverse proxy load balancer) is what you need to provision for client-facing traffic. 
-- **Internal bandwidth** (between proxies, load balancers, and web servers) must be provisioned at each link, and each device must be able to handle the full aggregate traffic, since every byte is transmitted across each hop[1](https://serverfault.com/questions/247337/proxy-bandwidth).
+- **Internal bandwidth** (between proxies, load balancers, and web servers) must be provisioned at each link, and each device must be able to handle the full aggregate traffic, since every byte is transmitted across each hop [1](https://serverfault.com/questions/247337/proxy-bandwidth).
 
 #### 3. Potential Bandwidth Optimizations
 - **Reverse proxies** can reduce bandwidth usage through caching and compression: 
-    - If a reverse proxy caches responses, repeated requests for the same resource may not traverse the entire chain, reducing internal bandwidth[4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
-    - Compression at the proxy layer can reduce the size of data sent to clients and between proxies, if enabled[4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
-- **load balancers** may offer WAN optimization features (compression, deduplication, protocol acceleration) that can reduce the amount of actual data sent across the network, but each logical hop still “sees” the full payload unless caching or optimization is in use[3](https://wtit.com/wp-content/uploads/2016/10/f5-white-paper-myths-of-bandwidth-optimization-.pdf)[4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
+    - If a reverse proxy caches responses, repeated requests for the same resource may not traverse the entire chain, reducing internal bandwidth [4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
+    - Compression at the proxy layer can reduce the size of data sent to clients and between proxies, if enabled [4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
+- **load balancers** may offer WAN optimization features (compression, deduplication, protocol acceleration) that can reduce the amount of actual data sent across the network, but each logical hop still “sees” the full payload unless caching or optimization is in use [3](https://wtit.com/wp-content/uploads/2016/10/f5-white-paper-myths-of-bandwidth-optimization-.pdf) [4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
 
 #### 4. Formula Adjustment
 If you ignore caching and compression for a worst-case scenario, the **total internal bandwidth** required is:
@@ -207,7 +207,7 @@ Where “hops” means the number of segments the data traverses (in your case: 
 - Each network segment between devices must be provisioned for the full client bandwidth.
 - Total internal bandwidth is a multiple of client bandwidth, based on the number of hops.
 - Caching and compression at reverse proxies can reduce actual bandwidth usage.
-- load balancers may offer WAN optimization, further reducing bandwidth needs if enabled[3](https://wtit.com/wp-content/uploads/2016/10/f5-white-paper-myths-of-bandwidth-optimization-.pdf)[4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
+- load balancers may offer WAN optimization, further reducing bandwidth needs if enabled [3](https://wtit.com/wp-content/uploads/2016/10/f5-white-paper-myths-of-bandwidth-optimization-.pdf) [4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
 
 #### summary
 Your setup means that for every byte delivered to a client, that byte is transmitted multiple times within your internal network, once for each hop between devices. This can significantly increase the total network bandwidth required inside your infrastructure compared to what is delivered to clients [1](https://serverfault.com/questions/247337/proxy-bandwidth) [4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
