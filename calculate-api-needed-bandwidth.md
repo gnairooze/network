@@ -61,7 +61,8 @@ Total Bandwidth (Mbps) = (Payload Size × Requests/sec × 8 × (1 + Overhead) ×
 4. **Bits per Second** = 17,664,000 × 8 = 141,312,000 bps
 5. **With Redundancy** = 141,312,000 × 1.5 = **211,968,000 bps (≈212 Mbps)**
 
-## Server Capacity Check (Using IIS Metrics[3](https://www.elastic.co/guide/en/beats/metricbeat/current/exported-fields-iis.html))
+## Server Capacity Check 
+(Using IIS Metrics [3](https://www.elastic.co/guide/en/beats/metricbeat/current/exported-fields-iis.html))
 
 | Metric                                                 | Value    | Threshold   |
 | ------------------------------------------------------ | -------- | ----------- |
@@ -82,13 +83,13 @@ Total Bandwidth (Mbps) = (Payload Size × Requests/sec × 8 × (1 + Overhead) ×
 	
 ```
 Required IOPS = (Requests/sec × 2) + Log Writes
-			  = (1,000 × 2) + 50 = 2,050 IOPS
+	= (1,000 × 2) + 50 = 2,050 IOPS
 ```
 
 3. **CPU Utilization** (Empirical rule):
 ```
 CPU Cores Needed = (Requests/sec × 0.002) × Redundancy
-			     = (1,000 × 0.002) × 1.5 = 3 cores
+	= (1,000 × 0.002) × 1.5 = 3 cores
 ```
 
 This calculation shows the server would require:
@@ -209,4 +210,4 @@ Where “hops” means the number of segments the data traverses (in your case: 
 - load balancers may offer WAN optimization, further reducing bandwidth needs if enabled[3](https://wtit.com/wp-content/uploads/2016/10/f5-white-paper-myths-of-bandwidth-optimization-.pdf)[4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
 
 #### summary
-Your setup means that for every byte delivered to a client, that byte is transmitted multiple times within your internal network, once for each hop between devices. This can significantly increase the total network bandwidth required inside your infrastructure compared to what is delivered to clients[1](https://serverfault.com/questions/247337/proxy-bandwidth)[4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
+Your setup means that for every byte delivered to a client, that byte is transmitted multiple times within your internal network, once for each hop between devices. This can significantly increase the total network bandwidth required inside your infrastructure compared to what is delivered to clients [1](https://serverfault.com/questions/247337/proxy-bandwidth) [4](https://www.upguard.com/blog/reverse-proxy-vs-load-balancer).
